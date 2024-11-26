@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+service FileService {
+  rpc UploadFile (stream FileChunk) returns (UploadStatus);
+  rpc DownloadFile (FileRequest) returns (stream FileChunk);
+  rpc Ping (Empty) returns (Empty);
+}
+
+message FileChunk {
+  bytes content = 1;
+  string fileName = 2;
+}
+
+message FileRequest {
+  string fileName = 1;
+}
+
+message UploadStatus {
+  bool success = 1;
+  string message = 2;
+}
+
+message Empty {}
